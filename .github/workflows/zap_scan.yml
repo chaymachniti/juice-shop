@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: zap-report
-          path: zap-report.json
+          path: report_json.json
 
       - name: Set up Python
         uses: actions/setup-python@v2
