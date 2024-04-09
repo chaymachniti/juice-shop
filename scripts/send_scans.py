@@ -8,7 +8,7 @@ class SendScans:
     def __init__(self, defectdojo_host: str, defectdojo_user: str, defectdojo_password: str):
         self.defectdojo_host = 'https://demo.defectdojo.org'
         self.defectdojo_user = 'admin'
-        self.defectdojo_password = '1Defectdojo@demo#appsec'
+        self.defectdojo_password = 'defectdojo@demo#appsec'
         self.defectdojo_api_key = '548afd6fab3bea9794a41b31da0e9404f733e222'
         self.product_id = 12
         self.engagement_id = None
