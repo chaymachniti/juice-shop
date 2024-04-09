@@ -131,6 +131,7 @@ def main():
   DEFECTDOJO_PASSWORD = os.getenv("DEFECTDOJO_PASSWORD")
   send_scans = SendScans(DEFECTDOJO_HOST, DEFECTDOJO_USER, DEFECTDOJO_PASSWORD)
   PRODUCT = os.getenv("CI_PROJECT_TITLE")
+  send_scans.__product_exists(PRODUCT)
   send_scans.create_product(PRODUCT, PRODUCT, 1)  # 1 - Research and Development, product type
   PIPELINE_ID = os.getenv("CI_PIPELINE_ID")
   VERSION = os.getenv("VERSION")
