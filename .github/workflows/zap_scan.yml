@@ -1,8 +1,9 @@
 name: "ZAP Baseline Scan"
 
 on:
-  schedule:
-    - cron:  '0 18 * * 6'
+  push:
+    branches:
+      - master
 
 jobs:
   zap_scan:
