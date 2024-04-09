@@ -23,3 +23,27 @@ jobs:
           target: 'https://preview.owasp-juice.shop'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
+      - name: Upload Gitleaks JSON report to artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-report
+          path: zap-report.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install pip
+        run: |
+          python -m ensurepip
+
+      - name: install requests
+        run: |
+          pip install requests
+      - name: DefectDojo Settings
+        run: |
+          python scripts/defectdojo_settings.py
+      - name: DefectDojo Scan
+        run: |
+          python scripts/send_scans.py
