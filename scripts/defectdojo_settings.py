@@ -4,7 +4,7 @@ import requests
 
 DEFECTDOJO_HOST = 'https://demo.defectdojo.org'
 DEFECTDOJO_USER = 'admin'
-DEFECTDOJO_PASSWORD = '1Defectdojo@demo#appsec'
+DEFECTDOJO_PASSWORD = 'defectdojo@demo#appsec'
 
 req_url_auth = f"{DEFECTDOJO_HOST}/api/v2/api-token-auth/"
 headers = {"Content-Type": "application/json"}
