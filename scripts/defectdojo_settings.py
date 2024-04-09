@@ -4,7 +4,7 @@ import requests
 
 DEFECTDOJO_HOST = 'https://demo.defectdojo.org'
 DEFECTDOJO_USER = 'admin'
-DEFECTDOJO_PASSWORD = 'defectdojo@demo#appsec'
+DEFECTDOJO_PASSWORD = '1Defectdojo@demo#appsec'
 
 req_url_auth = f"{DEFECTDOJO_HOST}/api/v2/api-token-auth/"
 headers = {"Content-Type": "application/json"}
@@ -17,3 +17,4 @@ payload = json.dumps({"enable_deduplication": True, "delete_duplicates": True, "
 response = requests.request("PUT", req_url_settings, data=payload, headers=headers)
 
 print(response.json())
+
