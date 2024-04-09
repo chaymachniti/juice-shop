@@ -134,8 +134,9 @@ def main():
   send_scans.create_product(PRODUCT, PRODUCT, 1)  # 1 - Research and Development, product type
   PIPELINE_ID = os.getenv("CI_PIPELINE_ID")
   VERSION = os.getenv("VERSION")
+  VERSION = os.getenv("VERSION")
   if VERSION is None:
-  VERSION = os.getenv("CI_COMMIT_SHORT_SHA")
+    VERSION = os.getenv("CI_COMMIT_SHORT_SHA")
   COMMIT_HASH = os.getenv("CI_COMMIT_SHA")
   BRANCH_OR_TAG = os.getenv("CI_COMMIT_REF_NAME")
   REPO_URI = os.getenv("CI_PROJECT_URL")
