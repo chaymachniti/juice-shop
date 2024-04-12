@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from typing import Dict, List
 import requests
 
+
 class SendScans:
   def __init__(self, defectdojo_host: str, defectdojo_user: str, defectdojo_password: str):
       self.defectdojo_host = 'https://demo.defectdojo.org'
@@ -27,22 +28,9 @@ class SendScans:
           print(f"Failed to get API key: {e}")
           raise e
 
-  def __product_exists(self, product_name: str) -> int:
-      url = f"{self.defectdojo_host}/api/v2/products/?name={product_name}"
-      headers = {"Accept": "application/json", "Authorization": f"Token {self.defectdojo_api_key}"}
-      try:
-          response = requests.request("GET", url, headers=headers)
-          response.raise_for_status()
-          if len(response.json()["results"]) == 0:
-              return None
-          return response.json()["results"][0]["id"]
-      except requests.exceptions.RequestException as e:
-          print(f"Failed to get product: {e}")
-          raise e
 
   def create_product(self, product_name: str, product_description: str, product_type: int) -> None:
-      self.product_id = self.__product_exists(product_name)
-      if self.product_id is None:
+
           url = f"{self.defectdojo_host}/api/v2/products/"
           payload = json.dumps({"name": product_name, "description": product_description, "prod_type": product_type})
           headers = {"Accept": "application/json", "Authorization": f"Token {self.defectdojo_api_key}", "Content-Type": "application/json"}
@@ -53,7 +41,29 @@ class SendScans:
               print(f"Created product {self.product_id}")
           except requests.exceptions.HTTPError as e:
               print(f"Failed to create product: {e}")
+              print("Response status code:", e.response.status_code)
+              print("Response text:", e.response.text)
               raise e
+
+
+  def create_product(self, product_name: str, product_description: str, product_type: int) -> None:
+
+            url = f"{self.defectdojo_host}/api/v2/products/"
+            payload = json.dumps({"name": product_name, "description": product_description, "prod_type": product_type})
+            headers = {"Accept": "application/json", "Authorization": f"Token {self.defectdojo_api_key}", "Content-Type": "application/json"}
+            try:
+                response = requests.request("POST", url, headers=headers, data=payload)
+                response.raise_for_status()
+                self.product_id = response.json()["id"]
+                print(f"Created product {self.product_id}")
+            except requests.exceptions.HTTPError as e:
+                print(f"Failed to create product: {e}")
+                print("Request headers:", response.request.headers)
+                print("Request body:", response.request.body)
+                print("Response status code:", response.status_code)
+                print("Response text:", response.text)
+                raise e
+
 
   def create_engagement(
       self,
@@ -126,11 +136,11 @@ class SendScans:
               continue
 
 def main():
-  DEFECTDOJO_HOST = os.getenv("DEFECTDOJO_HOST")
-  DEFECTDOJO_USER = os.getenv("DEFECTDOJO_USER")
-  DEFECTDOJO_PASSWORD = os.getenv("DEFECTDOJO_PASSWORD")
+  DEFECTDOJO_HOST = 'https://demo.defectdojo.org'
+  DEFECTDOJO_USER = 'admin'
+  DEFECTDOJO_PASSWORD = '1Defectdojo@demo#appsec'
   send_scans = SendScans(DEFECTDOJO_HOST, DEFECTDOJO_USER, DEFECTDOJO_PASSWORD)
-  PRODUCT = os.getenv("CI_PROJECT_TITLE")
+  PRODUCT = 'test-ch'
   send_scans.create_product(PRODUCT, PRODUCT, 1)  # 1 - Research and Development, product type
   PIPELINE_ID = os.getenv("CI_PIPELINE_ID")
   VERSION = os.getenv("VERSION")
@@ -152,4 +162,4 @@ def main():
 
 if __name__ == "__main__":
   main()
-EOF
+
