@@ -140,7 +140,7 @@ def main():
   DEFECTDOJO_USER = 'admin'
   DEFECTDOJO_PASSWORD = '1Defectdojo@demo#appsec'
   send_scans = SendScans(DEFECTDOJO_HOST, DEFECTDOJO_USER, DEFECTDOJO_PASSWORD)
-  PRODUCT = 'test-ch'
+  PRODUCT = 'test-ch-1'
   send_scans.create_product(PRODUCT, PRODUCT, 1)  # 1 - Research and Development, product type
   PIPELINE_ID = os.getenv("CI_PIPELINE_ID")
   VERSION = os.getenv("VERSION")
