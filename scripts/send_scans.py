@@ -140,7 +140,7 @@ def main():
   DEFECTDOJO_USER = os.getenv("DEFECTDOJO_USER")
   DEFECTDOJO_PASSWORD = os.getenv("DEFECTDOJO_PASSWORD")
   send_scans = SendScans(DEFECTDOJO_HOST, DEFECTDOJO_USER, DEFECTDOJO_PASSWORD)
-  PRODUCT = 'juice-shop-test1'
+  PRODUCT = 'juice-shop-test10'
   send_scans.create_product(PRODUCT, PRODUCT, 1)  # 1 - Research and Development, product type
   PIPELINE_ID = os.getenv("CI_PIPELINE_ID")
   VERSION = os.getenv("VERSION")
@@ -155,7 +155,7 @@ def main():
   ENGAGEMENT_DURATION_DAYS = 100  # Medium Finding SLA Days + 10
   send_scans.create_engagement(PIPELINE_ID, COMMIT_HASH, BRANCH_OR_TAG, VERSION, REPO_URI, SCM_SERVER, BUILD_SERVER, ENGAGEMENT_DURATION_DAYS)
   scans = [
-      {"scan_type": "ZAP Scan", "scan_file": "report_json.json"},
+      {"scan_type": "ZAP Scan", "scan_file": "report.json"},
 
   ]
   send_scans.upload_scans(scans)
