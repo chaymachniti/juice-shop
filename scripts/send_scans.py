@@ -135,7 +135,6 @@ class SendScans:
               print(f"Failed to upload scan {scan['scan_file']}: {e}")
               print("Response content:", response.text)
 
-
 def main():
   DEFECTDOJO_HOST = os.getenv("DEFECTDOJO_HOST")
   DEFECTDOJO_USER = os.getenv("DEFECTDOJO_USER")
