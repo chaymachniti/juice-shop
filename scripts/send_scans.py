@@ -136,11 +136,11 @@ class SendScans:
               continue
 
 def main():
-  DEFECTDOJO_HOST = 'https://demo.defectdojo.org'
-  DEFECTDOJO_USER = 'admin'
-  DEFECTDOJO_PASSWORD = '1Defectdojo@demo#appsec'
+  DEFECTDOJO_HOST = os.getenv("DEFECTDOJO_HOST")
+  DEFECTDOJO_USER = os.getenv("DEFECTDOJO_USER")
+  DEFECTDOJO_PASSWORD = os.getenv("DEFECTDOJO_PASSWORD")
   send_scans = SendScans(DEFECTDOJO_HOST, DEFECTDOJO_USER, DEFECTDOJO_PASSWORD)
-  PRODUCT = 'test-ch-1'
+  PRODUCT = os.getenv("CI_PROJECT_TITLE")
   send_scans.create_product(PRODUCT, PRODUCT, 1)  # 1 - Research and Development, product type
   PIPELINE_ID = os.getenv("CI_PIPELINE_ID")
   VERSION = os.getenv("VERSION")
