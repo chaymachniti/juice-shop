@@ -133,7 +133,8 @@ class SendScans:
               print(f"Uploaded scan {scan['scan_file']}")
           except requests.exceptions.HTTPError as e:
               print(f"Failed to upload scan {scan['scan_file']}: {e}")
-              continue
+              print("Response content:", response.text)
+
 
 def main():
   DEFECTDOJO_HOST = os.getenv("DEFECTDOJO_HOST")
