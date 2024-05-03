@@ -34,7 +34,7 @@ jobs:
 
       - name: OWASP ZAP Scan
         run: |
-                mkdir $HOME/zap/wrk
+                mkdir /zap/wrk
                 docker run --rm -v $HOME/zap:/zap owasp/zap2docker-stable:latest zap-api-scan.py -t http://webapi:8000/v3/api-docs -f openapi -x /zap/wrk/owasp-zap-scan-report.xml || true
                 cp $HOME/zap/wrk/owasp-zap-scan-report.xml $GITHUB_WORKSPACE
 
