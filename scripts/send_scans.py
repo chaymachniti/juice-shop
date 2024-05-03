@@ -108,35 +108,34 @@ class SendScans:
           print(f"Failed to create engagement: {e}")
           raise e
 
-  def upload_scans(self, scans: List[Dict[str, str]]) -> None:
-      for scan in scans:
-          url = f"{self.defectdojo_host}/api/v2/import-scan/"
-          print(url)
-          payload = {
-              "scan_date": self.start_date,
-              "engagement": self.engagement_id,
-              "scan_type": scan["scan_type"],
-              "active": "true",
-              "verified": "false",
-              #"close_old_findings": "true",
-              "skip_duplicates": "true",
-              "minimum_severity": "Info",
-          }
-          try:
-              file = {"file": open(scan["scan_file"], "rb")}
-              print(file)
-              print(scan["scan_file"])
-          except Exception as e:
-              print(f"Failed to open scan file {scan['scan_file']}: {e}")
-              continue
-          headers = {"Accept": "application/json", "Authorization": f"Token {self.defectdojo_api_key}"}
-          try:
-              response = requests.request("POST", url, headers=headers, data=payload, files=file)
-              response.raise_for_status()
-              print(f"Uploaded scan {scan['scan_file']}")
-          except requests.exceptions.HTTPError as e:
-              print(f"Failed to upload scan {scan['scan_file']}: {e}")
-              print("Response content:", response.text)
+
+
+
+def upload_scans(self, scans: List[Dict[str, str]]) -> None:
+    for scan in scans:
+        url = f"{self.defectdojo_host}/api/v2/import-scan/"
+        payload = {
+            "scan_date": self.start_date,
+            "engagement": self.engagement_id,
+            "scan_type": scan["scan_type"],
+            "active": "true",
+            "verified": "false",
+            #"close_old_findings": "true",
+            "skip_duplicates": "true",
+            "minimum_severity": "Info",
+        }
+        try:
+            with open(scan["scan_file"], "rb") as file:
+                files = {"file": file}
+                headers = {"Accept": "application/json", "Authorization": f"Token {self.defectdojo_api_key}"}
+                response = requests.post(url, headers=headers, data=payload, files=files)
+                response.raise_for_status()
+                print(f"Uploaded scan {scan['scan_file']}")
+        except FileNotFoundError:
+            print(f"Scan file not found: {scan['scan_file']}")
+        except Exception as e:
+            print(f"Failed to upload scan {scan['scan_file']}: {e}")
+
 
 def main():
   DEFECTDOJO_HOST = os.getenv("DEFECTDOJO_HOST")
@@ -158,7 +157,7 @@ def main():
   ENGAGEMENT_DURATION_DAYS = 100  # Medium Finding SLA Days + 10
   send_scans.create_engagement(PIPELINE_ID, COMMIT_HASH, BRANCH_OR_TAG, VERSION, REPO_URI, SCM_SERVER, BUILD_SERVER, ENGAGEMENT_DURATION_DAYS)
   scans = [
-      {"scan_type": "ZAP Scan", "scan_file": ".zap/report_json.json"},
+      {"scan_type": "ZAP Scan", "scan_file": "report_json.json"},
 
   ]
   send_scans.upload_scans(scans)
