@@ -10,7 +10,7 @@ class SendScans:
       self.defectdojo_host = 'https://demo.defectdojo.org'
       self.defectdojo_user = 'admin'
       self.defectdojo_password = '1Defectdojo@demo#appsec'
-      self.defectdojo_api_key = '548afd6fab3bea9794a41b31da0e9404f733e222'
+      self.defectdojo_api_key = '73d09e44dc7fad0ed110ecd078ace88b4ddf62c0'
       self.product_id = None
       self.engagement_id = None
       self.start_date = None
