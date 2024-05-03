@@ -25,16 +25,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: master
-      - name: Set up OWASP ZAP
-        run: |
-            mkdir $HOME/zap
-            cd $HOME/zap
-            curl -sL https://raw.githubusercontent.com/zaproxy/zaproxy/main/docker/Dockerfile > Dockerfile
-            docker build -t owasp/zap2docker-stable:latest .
 
       - name: OWASP ZAP Scan
         run: |
-          - mkdir /zap/wrk/
+          - mkdir $HOME/zap/wrk/
           - /zap/zap-api-scan.py -t https://preview.owasp-juice.shop -f openapi -x owasp-zap-scan-report.xml || true
           - cp /zap/wrk/owasp-zap-scan-report.xml .
 
