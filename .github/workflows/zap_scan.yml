@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: zap-report
-          path: report_json.json
+          path: report.csv
 
       - name: Download and extract artifact
         uses: actions/download-artifact@v2
