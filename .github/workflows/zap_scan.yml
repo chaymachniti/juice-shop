@@ -34,21 +34,16 @@ jobs:
 
       - name: OWASP ZAP Scan
         run: |
-                mkdir /zap/wrk
-                docker run --rm -v $HOME/zap:/zap owasp/zap2docker-stable:latest zap-api-scan.py -t http://webapi:8000/v3/api-docs -f openapi -x /zap/wrk/owasp-zap-scan-report.xml || true
-                cp $HOME/zap/wrk/owasp-zap-scan-report.xml $GITHUB_WORKSPACE
+          - mkdir /zap/wrk/
+          - /zap/zap-api-scan.py -t https://preview.owasp-juice.shop -f openapi -x owasp-zap-scan-report.xml || true
+          - cp /zap/wrk/owasp-zap-scan-report.xml .
 
       - name: Upload OWASP ZAP Scan Report
         uses: actions/upload-artifact@v2
         with:
           name: owasp-zap-scan-report
           path: owasp-zap-scan-report.xml
-#      - name: ZAP Scan
-#        run: |
-#          - mkdir /zap/wrk/
-#          - /zap/zap-api-scan.py -t https://preview.owasp-juice.shop -f openapi -x owasp-zap-scan-report.xml || true
-#          - cp /zap/wrk/owasp-zap-scan-report.xml
-#        with:
+#      - name:                
 #          token: ${{ secrets.GITHUB_TOKEN }}
 #          docker_name: 'owasp/zap2docker-stable:latest'
 #          target: 'https://preview.owasp-juice.shop'
