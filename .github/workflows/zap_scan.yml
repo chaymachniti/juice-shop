@@ -26,7 +26,6 @@ jobs:
         with:
           ref: master
       - name: ZAP Scan
-        uses: owasp/zap2docker-stable:latest
         run: |
           - mkdir /zap/wrk/
           - /zap/zap-api-scan.py -t https://preview.owasp-juice.shop -f openapi -x owasp-zap-scan-report.xml || true
