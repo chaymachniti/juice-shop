@@ -36,7 +36,8 @@ jobs:
       - name: Upload Gitleaks JSON report to artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: zap-report.xml
+          name: zap-report
+          path: report_json.xml
 
       - name: Download and extract artifact
         uses: actions/download-artifact@v2
