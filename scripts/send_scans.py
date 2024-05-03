@@ -111,6 +111,7 @@ class SendScans:
   def upload_scans(self, scans: List[Dict[str, str]]) -> None:
       for scan in scans:
           url = f"{self.defectdojo_host}/api/v2/import-scan/"
+          print(url)
           payload = {
               "scan_date": self.start_date,
               "engagement": self.engagement_id,
@@ -123,6 +124,8 @@ class SendScans:
           }
           try:
               file = {"file": open(scan["scan_file"], "rb")}
+              print(file)
+              print(scan["scan_file"])
           except Exception as e:
               print(f"Failed to open scan file {scan['scan_file']}: {e}")
               continue
@@ -163,3 +166,4 @@ def main():
 if __name__ == "__main__":
   main()
 
+v                                                                                          
