@@ -108,36 +108,6 @@ class SendScans:
           print(f"Failed to create engagement: {e}")
           raise e
 
-
-def upload_scans(self, scans: List[Dict[str, str]]) -> None:
-    for scan in scans:
-        url = f"{self.defectdojo_host}/api/v2/import-scan/"
-        payload = {
-            "scan_date": self.start_date,
-            "engagement": self.engagement_id,
-            "scan_type": scan["scan_type"],
-            "active": "true",
-            "verified": "false",
-            #"close_old_findings": "true",
-            "skip_duplicates": "true",
-            "minimum_severity": "Info",
-        }
-        try:
-            with open(scan["scan_file"], "rb") as file:
-                files = {"file": file}
-                headers = {"Accept": "application/json", "Authorization": f"Token {self.defectdojo_api_key}"}
-                response = requests.post(url, headers=headers, data=payload, files=files)
-                response.raise_for_status()
-                print(f"Uploaded scan {scan['scan_file']}")
-        except FileNotFoundError:
-            print(f"Scan file not found: {scan['scan_file']}")
-        except requests.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
-            print(f"API response: {response.text}")
-        except Exception as e:
-            print(f"Failed to upload scan {scan['scan_file']}: {e}")
-
-
   def upload_scans(self, scans: List[Dict[str, str]]) -> None:
           for scan in scans:
               url = f"{self.defectdojo_host}/api/v2/import-scan/"
@@ -160,6 +130,9 @@ def upload_scans(self, scans: List[Dict[str, str]]) -> None:
                       print(f"Uploaded scan {scan['scan_file']}")
               except FileNotFoundError:
                   print(f"Scan file not found: {scan['scan_file']}")
+              except requests.HTTPError as http_err:
+                  print(f"HTTP error occurred: {http_err}")
+                  print(f"API response: {response.text}")
               except Exception as e:
                   print(f"Failed to upload scan {scan['scan_file']}: {e}")
 
