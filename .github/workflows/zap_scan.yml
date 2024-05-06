@@ -33,7 +33,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-
+      - name: Install njsscan
+        run: npm install -g njsscan
       - name: Install dependencies
         run: npm install
 
