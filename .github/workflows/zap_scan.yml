@@ -42,6 +42,7 @@ jobs:
         run: |
           # Convert JSON to XML using jq
           jq -cM .zap/report_json.json > .zap/report_xml.xml
+
       - name: Upload XML report to artifacts
         uses: actions/upload-artifact@v3
         with:
