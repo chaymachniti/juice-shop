@@ -127,14 +127,18 @@ def main():
   PRODUCT = 'juice-shop-test'
   send_scans.create_product(PRODUCT, PRODUCT, 1)  # 1 - Research and Development, product type
   PIPELINE_ID = os.getenv("CI_PIPELINE_ID")
+  print(PIPELINE_ID)
   VERSION = os.getenv("VERSION")
-  VERSION = os.getenv("VERSION")
+  print("VERSION:",VERSION)
   if VERSION is None:
     VERSION = os.getenv("CI_COMMIT_SHORT_SHA")
   COMMIT_HASH = os.getenv("CI_COMMIT_SHA")
+  print("COMMIT_HASH:",COMMIT_HASH)
   BRANCH_OR_TAG = os.getenv("CI_COMMIT_REF_NAME")
+  print("CI_COMMIT_REF_NAME:",BRANCH_OR_TAG)
+
   REPO_URI = os.getenv("GITHUB_REPOSITORY")
-  print(REPO_URI)
+  print("Repository name:",REPO_URI)
   SCM_SERVER = 1
   BUILD_SERVER = 2
   ENGAGEMENT_DURATION_DAYS = 100  # Medium Finding SLA Days + 10
