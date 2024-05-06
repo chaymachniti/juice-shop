@@ -24,28 +24,31 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: master
-
-
-
-      - name: ZAP Scan
+      - name: Install Perl and Git
         run: |
-          docker pull zaproxy/zap-stable
-          docker run --rm -v ${{ github.workspace }}/zap_reports:/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py \
-          -t 'https://preview.owasp-juice.shop' \
-          -x /zap/wrk/zap_scan_report.xml
+          sudo apt-get update
+          sudo apt-get install -y perl git
 
-      - name: Upload ZAP XML report to artifacts
+      - name: Clone Nikto Repository
+        run: git clone https://github.com/sullo/nikto
+
+      - name: Run Nikto Scan
+        run: |
+          perl ./nikto/program/nikto.pl -h https://preview.owasp-juice.shop -o /tmp/nikto-scan-report.xml || true
+
+      - name: Save Scan Report
+        run: cp /tmp/nikto-scan-report.xml ${{ github.workspace }}/nikto-scan-report.xml
+
+      - name: Upload Scan Report
         uses: actions/upload-artifact@v2
         with:
-          name: zap-report
-          path: zap_scan_report.xml
-
-
+          name: nikto-scan-report
+          path: ${{ github.workspace }}/nikto-scan-report.xml
 #      - name: ZAP Scan
 #        uses: zaproxy/action-full-scan@v0.10.0
 #        with:
 #          token: ${{ secrets.GITHUB_TOKEN }}
-#          docker_name: 'owasp/zap2docker-stable:latest'
+#          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
 #          target: 'https://preview.owasp-juice.shop'
 #          rules_file_name: '.zap/rules.tsv'
 #          #cmd_options: '-a'
@@ -55,12 +58,12 @@ jobs:
 #        with:
 #          name: zap-report
 #          path: report_json.xml
-
-      - name: Download and extract artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: zap-report
-          path: .zap
+#
+#      - name: Download and extract artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: zap-report
+#          path: .zap
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
