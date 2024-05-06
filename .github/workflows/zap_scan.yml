@@ -24,33 +24,19 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: master
-      - name: Install Perl and Git
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y perl git
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: nodejsscan scan
+        id: njsscan
+        uses: ajinabraham/njsscan-action@master
+        # ARGUMENTS THAT SPECIFY THE SARIF OUTPUT FILE
         with:
-          node-version: '14'
-
-      - name: Clone NJSScan Repository
-        run: git clone https://github.com/ajinabraham/njsscan.git
-
-      - name: Install NJSScan Dependencies
-        run: |
-          cd njsscan
-          npm install
-
-      - name: Run NJSScan
-        run: |
-          node njsscan/njsscan.js --outputFormat json --outputFile njsscan-report.json .
-
-      - name: Upload NJSScan Report
-        uses: actions/upload-artifact@v2
+          args: '. --sarif --output results.sarif || true'
+      - name: Upload njsscan report
+        uses: github/codeql-action/upload-sarif@v2
         with:
-          name: njsscan-report
-          path: njsscan-report.json
+          sarif_file: results.sarif
 #      - name: ZAP Scan
 #        uses: zaproxy/action-full-scan@v0.10.0
 #        with:
