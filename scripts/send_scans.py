@@ -141,7 +141,6 @@ def main():
   send_scans.create_engagement(PIPELINE_ID, COMMIT_HASH, BRANCH_OR_TAG, VERSION, REPO_URI, SCM_SERVER, BUILD_SERVER, ENGAGEMENT_DURATION_DAYS)
   scans = [
   {"scan_type": "Node Security Platform Scan", "scan_file": "results.json"},
-
   ]
   send_scans.upload_scans(scans)
 
