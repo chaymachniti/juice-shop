@@ -84,6 +84,12 @@ class SendScans:
           response.raise_for_status()
           self.engagement_id = response.json()["id"]
           print(f"Created engagement {self.engagement_id}")
+      except requests.HTTPError as http_err:
+          print(f"HTTP error occurred: {http_err}")
+          print(f"API response: {response.text}")
+        # Log server error message if available
+          if "message" in response.json():
+          print(f"Server error message: {response.json()['message']}")
       except requests.exceptions.HTTPError as e:
           print(f"Failed to create engagement: {e}")
           raise e
