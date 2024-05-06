@@ -129,12 +129,15 @@ class SendScans:
                       response.raise_for_status()
                       print(f"Uploaded scan {scan['scan_file']}")
               except FileNotFoundError:
-                  print(f"Scan file not found: {scan['scan_file']}")
+                      print(f"Scan file not found: {scan['scan_file']}")
               except requests.HTTPError as http_err:
-                  print(f"HTTP error occurred: {http_err}")
-                  print(f"API response: {response.text}")
+                      print(f"HTTP error occurred: {http_err}")
+                      print(f"API response: {response.text}")
+                      # Log server error message if available
+                      if "message" in response.json():
+                        print(f"Server error message: {response.json()['message']}")
               except Exception as e:
-                  print(f"Failed to upload scan {scan['scan_file']}: {e}")
+                     print(f"Failed to upload scan {scan['scan_file']}: {e}")
 
 def main():
   DEFECTDOJO_HOST = os.getenv("DEFECTDOJO_HOST")
