@@ -134,6 +134,7 @@ def main():
   COMMIT_HASH = os.getenv("CI_COMMIT_SHA")
   BRANCH_OR_TAG = os.getenv("CI_COMMIT_REF_NAME")
   REPO_URI = os.getenv("CI_PROJECT_URL")
+  print(REPO_URI)
   SCM_SERVER = 1
   BUILD_SERVER = 2
   ENGAGEMENT_DURATION_DAYS = 100  # Medium Finding SLA Days + 10
