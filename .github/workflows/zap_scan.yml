@@ -29,8 +29,10 @@ jobs:
 
       - name: ZAP Scan
         run: |
-          docker pull owasp/zap2docker-stable:latest
-          docker run --rm -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py -t 'https://preview.owasp-juice.shop' -r zap_scan_report.xml
+          docker pull zaproxy/zap-stable
+          docker run --rm -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py \
+          -t 'https://preview.owasp-juice.shop' \
+          -x zap_scan_report.xml
 
       - name: Upload ZAP XML report to artifacts
         uses: actions/upload-artifact@v2
