@@ -32,11 +32,13 @@ jobs:
         uses: ajinabraham/njsscan-action@master
         # ARGUMENTS THAT SPECIFY THE SARIF OUTPUT FILE
         with:
-          args: '. --sarif --output results.sarif || true'
+        args: '. --json --output results.json || true'
+
       - name: Upload njsscan report
-        uses: github/codeql-action/upload-sarif@v2
+        uses: actions/upload-artifact@v2
         with:
-          sarif_file: results.sarif
+          name: njsscan-report
+          path: results.json
 #      - name: ZAP Scan
 #        uses: zaproxy/action-full-scan@v0.10.0
 #        with:
