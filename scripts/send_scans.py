@@ -130,10 +130,10 @@ def main():
   VERSION = os.getenv("VERSION")
   VERSION = os.getenv("VERSION")
   if VERSION is None:
-    VERSION = os.getenv("CI_COMMIT_SHORT_SHA")
-  COMMIT_HASH = os.getenv("CI_COMMIT_SHA")
-  BRANCH_OR_TAG = os.getenv("CI_COMMIT_REF_NAME")
-  REPO_URI = os.getenv("CI_PROJECT_URL")
+    VERSION = os.getenv("GITHUB_SHA")[:7]
+  COMMIT_HASH = os.getenv("GITHUB_SHA")
+  BRANCH_OR_TAG = os.path.basename(os.getenv("GITHUB_REF"))
+  REPO_URI = os.getenv("GITHUB_REPOSITORY")
   print(REPO_URI)
   SCM_SERVER = 1
   BUILD_SERVER = 2
