@@ -144,7 +144,7 @@ def main():
   DEFECTDOJO_USER = os.getenv("DEFECTDOJO_USER")
   DEFECTDOJO_PASSWORD = os.getenv("DEFECTDOJO_PASSWORD")
   send_scans = SendScans(DEFECTDOJO_HOST, DEFECTDOJO_USER, DEFECTDOJO_PASSWORD)
-  PRODUCT = 'juice-shop-test10'
+  PRODUCT = 'juice-shop-test'
   send_scans.create_product(PRODUCT, PRODUCT, 1)  # 1 - Research and Development, product type
   PIPELINE_ID = os.getenv("CI_PIPELINE_ID")
   VERSION = os.getenv("VERSION")
