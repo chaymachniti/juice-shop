@@ -36,8 +36,9 @@ jobs:
         run: |
           perl ./nikto/program/nikto.pl -h https://preview.owasp-juice.shop -o /tmp/nikto-scan-report.xml || true
 
-      - name: Save Scan Report
-        run: cp /tmp/nikto-scan-report.xml ${{ github.workspace }}/nikto-scan-report.xml
+      - name: Run Nikto Scan (Port 443)
+        run: |
+          perl ./nikto/program/nikto.pl -h https://preview.owasp-juice.shop -p 443 -o /tmp/nikto-scan-report.xml || true
 
       - name: Upload Scan Report
         uses: actions/upload-artifact@v2
