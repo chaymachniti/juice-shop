@@ -137,7 +137,10 @@ def main():
   print("COMMIT_HASH:",COMMIT_HASH)
   BRANCH_OR_TAG = os.getenv("CI_COMMIT_REF_NAME")
   print("CI_COMMIT_REF_NAME:",BRANCH_OR_TAG)
-  REPO_URI = os.getenv("CI_PROJECT_URL")
+  github_repository = os.getenv("GITHUB_REPOSITORY")
+  github_server_url = os.getenv("GITHUB_SERVER_URL")
+  repository_url = f"{github_server_url}/{github_repository}"
+  REPO_URI = f"{repository_url}.git"
   print("Repository name:",REPO_URI)
   SCM_SERVER = 1
   BUILD_SERVER = 2
