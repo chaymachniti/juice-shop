@@ -33,14 +33,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - name: Install njsscan
-        run: npm install -g njsscan
-      - name: Install dependencies
-        run: npm install
+
+      - name: Clone NJSScan Repository
+        run: git clone https://github.com/ajinabraham/njsscan.git
+
+      - name: Install NJSScan Dependencies
+        run: |
+          cd njsscan
+          npm install
 
       - name: Run NJSScan
         run: |
-          njsscan --outputFormat json --outputFile njsscan-report.json .
+          cd njsscan
+          node njsscan.js --outputFormat json --outputFile njsscan-report.json .
         continue-on-error: true
 
       - name: Upload NJSScan Report
