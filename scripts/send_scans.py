@@ -84,7 +84,7 @@ class SendScans:
           response.raise_for_status()
           self.engagement_id = response.json()["id"]
           print(f"Created engagement {self.engagement_id}")
-          
+
       except requests.exceptions.HTTPError as e:
           print(f"Failed to create engagement: {e}")
           raise e
@@ -137,8 +137,7 @@ def main():
   print("COMMIT_HASH:",COMMIT_HASH)
   BRANCH_OR_TAG = os.getenv("CI_COMMIT_REF_NAME")
   print("CI_COMMIT_REF_NAME:",BRANCH_OR_TAG)
-
-  REPO_URI = os.getenv("GITHUB_REPOSITORY")
+  REPO_URI = os.getenv("CI_PROJECT_URL")
   print("Repository name:",REPO_URI)
   SCM_SERVER = 1
   BUILD_SERVER = 2
