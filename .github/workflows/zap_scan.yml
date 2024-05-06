@@ -27,12 +27,12 @@ jobs:
 
       - name: Checkout the code
         uses: actions/checkout@v2
+
       - name: nodejsscan scan
         id: njsscan
         uses: ajinabraham/njsscan-action@master
-        # ARGUMENTS THAT SPECIFY THE SARIF OUTPUT FILE
         with:
-        args: '. --json --output results.json || true'
+          args: '. --json --output results.json || true'
 
       - name: Upload njsscan report
         uses: actions/upload-artifact@v2
