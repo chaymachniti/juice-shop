@@ -5,7 +5,6 @@ on:
     branches:
       - master
 
-
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
@@ -42,7 +41,7 @@ jobs:
       - name: Download and extract artifact
         uses: actions/download-artifact@v2
         with:
-          name: zap-scan-results
+          name: zap-report
           path: .zap
       - name: Set up Python
         uses: actions/setup-python@v2
