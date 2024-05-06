@@ -159,7 +159,7 @@ def main():
   ENGAGEMENT_DURATION_DAYS = 100  # Medium Finding SLA Days + 10
   send_scans.create_engagement(PIPELINE_ID, COMMIT_HASH, BRANCH_OR_TAG, VERSION, REPO_URI, SCM_SERVER, BUILD_SERVER, ENGAGEMENT_DURATION_DAYS)
   scans = [
-      {"scan_type": "ZAP Scan", "scan_file": "report_json.xml"},
+  {"scan_type": "ZAP Scan", "scan_file": "zap_scan_report.xml"},
 
   ]
   send_scans.upload_scans(scans)
