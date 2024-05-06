@@ -44,9 +44,8 @@ jobs:
 
       - name: Run NJSScan
         run: |
-          cd njsscan
-          node njsscan.js --outputFormat json --outputFile njsscan-report.json .
-        continue-on-error: true
+          node njsscan/njsscan.js --outputFormat json --outputFile njsscan-report.json .
+          continue-on-error: true
 
       - name: Upload NJSScan Report
         uses: actions/upload-artifact@v2
