@@ -27,7 +27,6 @@ jobs:
 
       - name: Checkout the code
         uses: actions/checkout@v2
-
       - name: Run auditjs and save report
         run: |
           cd ..
