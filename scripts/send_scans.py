@@ -10,7 +10,7 @@ class SendScans:
       self.defectdojo_host = 'https://demo.defectdojo.org'
       self.defectdojo_user = 'admin'
       self.defectdojo_password = '1Defectdojo@demo#appsec'
-      self.defectdojo_api_key = 'e323489cae4c31377c896d021becd67e69bbdf02'
+      self.defectdojo_api_key = '548afd6fab3bea9794a41b31da0e9404f733e222'
       self.product_id = None
       self.engagement_id = None
       self.start_date = None
@@ -147,7 +147,7 @@ def main():
   ENGAGEMENT_DURATION_DAYS = 100  # Medium Finding SLA Days + 10
   send_scans.create_engagement(PIPELINE_ID, COMMIT_HASH, BRANCH_OR_TAG, VERSION, REPO_URI, SCM_SERVER, BUILD_SERVER, ENGAGEMENT_DURATION_DAYS)
   scans = [
-  {"scan_type": "Node Security Platform Scan", "scan_file": "results.json"},
+  {"scan_type": "AuditJS Scan ", "scan_file": "audit-report.json"},
   ]
   send_scans.upload_scans(scans)
 

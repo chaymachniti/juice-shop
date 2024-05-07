@@ -28,17 +28,18 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: nodejsscan scan
-        id: njsscan
-        uses: ajinabraham/njsscan-action@master
-        with:
-          args: '. --json --output results.json || true'
-
-      - name: Upload njsscan report
+      - name: Run auditjs and save report
+        run: |
+          npx auditjs@beta ossi
+          # Assuming auditjs generates a JSON report named 'audit-report.json'
+          mv audit-report.json $GITHUB_WORKSPACE
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+      - name: Upload audit report
         uses: actions/upload-artifact@v2
         with:
-          name: njsscan-report
-          path: results.json
+          name: audit-report
+          path: ${{ github.workspace }}/audit-report.json
 #      - name: ZAP Scan
 #        uses: zaproxy/action-full-scan@v0.10.0
 #        with:
