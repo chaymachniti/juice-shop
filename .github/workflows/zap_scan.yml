@@ -41,7 +41,7 @@ jobs:
           CI: true
       - name: run auditjs
         run: |
-          npx auditjs@latest ossi --format json > audit-report.json
+          npx auditjs@latest iq > audit-report.json
       - name: Upload audit report
         uses: actions/upload-artifact@v2
         with:
