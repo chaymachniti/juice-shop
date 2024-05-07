@@ -30,6 +30,8 @@ jobs:
 
       - name: Run auditjs and save report
         run: |
+          cd ..
+          cd ..
           npx auditjs@beta ossi --format json > audit-report.json
         working-directory: ${{ github.workspace }}
       - name: Upload audit report
