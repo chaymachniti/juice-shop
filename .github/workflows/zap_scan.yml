@@ -30,16 +30,13 @@ jobs:
 
       - name: Run auditjs and save report
         run: |
-          npx auditjs@beta ossi
-          # Assuming auditjs generates a JSON report named 'audit-report.json'
-          mv audit-report.json $GITHUB_WORKSPACE
-        env:
-          GITHUB_WORKSPACE: ${{ github.workspace }}
+          npx auditjs@beta ossi --format json > audit-report.json
+        working-directory: ${{ github.workspace }}
       - name: Upload audit report
         uses: actions/upload-artifact@v2
         with:
           name: audit-report
-          path: ${{ github.workspace }}/audit-report.json
+          path: audit-report.json
 #      - name: ZAP Scan
 #        uses: zaproxy/action-full-scan@v0.10.0
 #        with:
