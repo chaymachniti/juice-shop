@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: audit-report
-          path: audit-report.json
+          path: ../../audit-report.json
 #      - name: ZAP Scan
 #        uses: zaproxy/action-full-scan@v0.10.0
 #        with:
