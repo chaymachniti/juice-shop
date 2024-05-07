@@ -29,15 +29,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Run auditjs and save report
         run: |
-          cd ..
-          cd ..
           npx auditjs@beta ossi --format json > audit-report.json
         working-directory: ${{ github.workspace }}
       - name: Upload audit report
         uses: actions/upload-artifact@v2
         with:
           name: audit-report
-          path: ../../audit-report.json
+          path: audit-report.json
 #      - name: ZAP Scan
 #        uses: zaproxy/action-full-scan@v0.10.0
 #        with:
