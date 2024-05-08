@@ -31,7 +31,9 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-      
+          tags: cchniti/juice-shop:latest
+          build-args: |
+            NODE_ENV=production
 
 
 
