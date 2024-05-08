@@ -48,7 +48,7 @@ jobs:
 #          name: audit-report
 #          path: audit-report.json
 
- 
+
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.10.0
         with:
@@ -56,15 +56,19 @@ jobs:
           docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
           target: 'https://preview.owasp-juice.shop'
           rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-x report_xml'
+          cmd_options: '-a'
 
       - name: Upload XML report to artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: zap-report-xml
-          path: .zap/report_xml.xml
+          name: zap-report
+          path: report_json.json
 
-
+      - name: Download and extract artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: zap-report
+          path: .zap
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
