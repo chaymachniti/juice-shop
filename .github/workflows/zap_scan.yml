@@ -8,16 +8,6 @@ on:
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    env:
-      CI_COMMIT_SHORT_SHA: ${{ github.sha }}
-      CI_COMMIT_SHA: ${{ github.sha }}
-      CI_COMMIT_REF_NAME: ${{ github.ref }}
-      CI_PROJECT_URL: ${{ github.repository_url }}
-      DEFECTDOJO_HOST: ${{ secrets.DEFECTDOJO_HOST }}
-      DEFECTDOJO_USER: ${{ secrets.DEFECTDOJO_USER }}
-      DEFECTDOJO_PASSWORD: ${{ secrets.DEFECTDOJO_PASSWORD }}
-      VERSION: "1.0.0"
-      CI_PIPELINE_ID: ${{ github.run_id }}
     services:
       webapi:
         image: ${{ secrets.CI_REGISTRY_IMAGE }}:latest
@@ -29,6 +19,17 @@ jobs:
       port:
         description: 'Port number for the application'
         default: 8000
+    env:
+      CI_COMMIT_SHORT_SHA: ${{ github.sha }}
+      CI_COMMIT_SHA: ${{ github.sha }}
+      CI_COMMIT_REF_NAME: ${{ github.ref }}
+      CI_PROJECT_URL: ${{ github.repository_url }}
+      DEFECTDOJO_HOST: ${{ secrets.DEFECTDOJO_HOST }}
+      DEFECTDOJO_USER: ${{ secrets.DEFECTDOJO_USER }}
+      DEFECTDOJO_PASSWORD: ${{ secrets.DEFECTDOJO_PASSWORD }}
+      VERSION: "1.0.0"
+      CI_PIPELINE_ID: ${{ github.run_id }}
+
     name: Scan the webapplication
     steps:
       - name: Checkout
