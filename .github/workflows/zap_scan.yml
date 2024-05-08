@@ -73,7 +73,7 @@ jobs:
 
       - name: Run Nikto scan
         run: |
-          perl ./nikto/program/nikto.pl -h http://localhost:8000 -o /tmp/nikto-scan-report.xml || true
+          perl ./nikto/program/nikto.pl -h https://www.zaproxy.org -o /tmp/nikto-scan-report.xml || true
 
       - name: Save Nikto scan report
         run: cp /tmp/nikto-scan-report.xml .
