@@ -39,14 +39,19 @@ jobs:
           npm run build --if-present
         env:
           CI: true
-      - name: run auditjs
+#      - name: run auditjs
+#        run: |
+#          npx auditjs@latest iq > audit-report.json
+#      - name: Upload audit report
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: audit-report
+#          path: audit-report.json
+
+      - name: Run ZAP Scan
         run: |
-          npx auditjs@latest iq > audit-report.json
-      - name: Upload audit report
-        uses: actions/upload-artifact@v2
-        with:
-          name: audit-report
-          path: audit-report.json
+          docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+          -t https://preview.owasp-juice.shop -g gen.conf -x zap-report.xml
 #      - name: ZAP Scan
 #        uses: zaproxy/action-full-scan@v0.10.0
 #        with:
@@ -62,11 +67,11 @@ jobs:
 #          name: zap-report-xml
 #          path: .zap/report_xml.xml
 #
-#      - name: Download and extract artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: zap-report
-#          path: .zap
+      - name: Download and extract artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: zap-report
+          path: .zap
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
