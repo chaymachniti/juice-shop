@@ -48,10 +48,7 @@ jobs:
 #          name: audit-report
 #          path: audit-report.json
 
-      - name: Run ZAP Scan
-        run: |
-          docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:weekly zap-baseline.py \
-          -t https://preview.owasp-juice.shop -g gen.conf -x zap-report.xml
+ 
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.10.0
         with:
