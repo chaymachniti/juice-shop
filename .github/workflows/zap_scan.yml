@@ -8,6 +8,10 @@ on:
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:20.10.17-dind
+        options: --privileged  # Necessary to run Docker inside Docker
     env:
       CI_COMMIT_SHORT_SHA: ${{ github.sha }}
       CI_COMMIT_SHA: ${{ github.sha }}
