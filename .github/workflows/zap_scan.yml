@@ -25,8 +25,37 @@ jobs:
         with:
           ref: master
 
-      - name: Checkout the code
-        uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+            node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start Node.js application
+        run: npm start &
+        background: true
+
+      - name: Wait for application to start
+        run: sleep 10
+
+      - name: Clone Nikto repository
+        run: git clone https://github.com/sullo/nikto
+
+      - name: Run Nikto scan
+        run: |
+          nikto_url="http://localhost:${{ github.event.inputs.port }}"
+          perl ./nikto/program/nikto.pl -h $nikto_url -o /tmp/nikto-scan-report.xml || true
+
+      - name: Save Nikto scan report
+        run: cp /tmp/nikto-scan-report.xml .
+
+      - name: Upload Nikto scan report
+        uses: actions/upload-artifact@v2
+        with:
+          name: nikto-scan-report
+          path: ./nikto-scan-report.xml
 
 
 #      - name: Use Node.js ${{ matrix.node-version }}
@@ -63,36 +92,6 @@ jobs:
 #        with:
 #          name: zap-report
 #          path: report_xml.xml
-      - name: Install Perl
-        run: |
-          sudo apt update
-          sudo apt install -y perl
-
-      - name: Clone Nikto repository
-        run: git clone https://github.com/sullo/nikto
-
-      - name: Run Nikto scan
-        run: |
-          perl ./nikto/program/nikto.pl -h https://www.zaproxy.org -o /tmp/nikto-scan-report.xml || true
-
-      - name: Save Nikto scan report
-        run: cp /tmp/nikto-scan-report.xml .
-
-      - name: Upload Nikto scan report
-        uses: actions/upload-artifact@v2
-        with:
-          name: nikto-scan-report
-          path: ./nikto-scan-report.xml
-
-      - name: Download and extract artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: nikto-scan-report
-          path: .zap
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
 
       - name: Install pip
         run: |
