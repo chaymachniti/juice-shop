@@ -111,13 +111,13 @@ jobs:
         id: njsscan
         uses: ajinabraham/njsscan-action@master
         with:
-          args: '.'
+          args: ''-o /path/to/njsscan-report.json .'
 
       - name: Upload njsscan report
         uses: actions/upload-artifact@v2
         with:
           name: njsscan-report
-          path: ${{ steps.njsscan.outputs.report_path }}
+          path: .zap
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
