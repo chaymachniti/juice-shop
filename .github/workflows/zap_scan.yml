@@ -107,6 +107,7 @@ jobs:
         with:
           name: nikto-scan-report
           path: .zap
+
       - name: nodejsscan scan
         id: njsscan
         uses: ajinabraham/njsscan-action@master
@@ -117,13 +118,18 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: njsscan-report
+          path: ./njsscan-report.json
+
+      - name: Download and extract artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: njsscan-report.json
           path: .zap
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
-
 
       - name: Install pip
         run: |
