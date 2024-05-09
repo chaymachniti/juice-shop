@@ -149,7 +149,6 @@ def main():
   scans = [
   {"scan_type": "Nikto Scan", "scan_file": "nikto-scan-report.xml"},
   {"scan_type": "Node Security Platform Scan", "scan_file": "njsscan-report.json"},
-  {"scan_type": "Dependency Check Scan", "scan_file": "dependency-check-report.xml"},
 
   ]
   send_scans.upload_scans(scans)

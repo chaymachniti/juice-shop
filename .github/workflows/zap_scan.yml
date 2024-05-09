@@ -123,22 +123,7 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run Dependency-Check Scan
-        run: |
-          docker run --rm \
-          -v $(pwd):/src \
-          owasp/dependency-check:latest \
-          --scan /src \
-          --format "XML" \
-          --project "${{ github.repository }}" \
-          --out /src/dependency-check-report.xml \
-          --suppression /src/owasp-depscan-suppress.xml
 
-          - name: Upload Dependency-Check Report
-            uses: actions/upload-artifact@v2
-            with:
-              name: dependency-check-report
-              path: dependency-check-report.xml
 
       - name: Install pip
         run: |
