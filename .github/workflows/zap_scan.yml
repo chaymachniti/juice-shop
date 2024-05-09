@@ -111,7 +111,7 @@ jobs:
         id: njsscan
         uses: ajinabraham/njsscan-action@master
         with:
-          args: ''-o /path/to/njsscan-report.json .'
+          args: '-o /path/to/njsscan-report.json .'
 
       - name: Upload njsscan report
         uses: actions/upload-artifact@v2
