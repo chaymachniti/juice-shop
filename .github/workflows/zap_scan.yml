@@ -69,7 +69,7 @@ jobs:
       - name: Run ESLint and save results in JSON file
         id: eslint
         run: |
-          eslint --format=json --output-file=eslint-results.json src/
+          eslint --format=json --output-file=eslint-results.json juice-shop/
           echo "::set-output name=eslint_results::eslint-results.json"
 
       - name: Upload ESLint results as artifact
