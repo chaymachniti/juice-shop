@@ -57,7 +57,7 @@ jobs:
       - name: Start ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
-          target: "http://your-juice-shop-url"  # Replace with your Juice Shop URL
+          target: "http://localhost:3000/api-docs"  # Replace with your Juice Shop URL
 
       - name: Create Report Files
         run: |
