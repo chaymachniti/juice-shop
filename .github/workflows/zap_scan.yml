@@ -1,4 +1,4 @@
-name: "ZAP Baseline Scan"
+name: "juice shop Scan"
 
 on:
   push:
@@ -69,7 +69,7 @@ jobs:
       - name: Run ESLint and save results in JSON file
         id: eslint
         run: |
-          eslint --format=json --output-file=eslint-results.json juice-shop/
+          /node_modules/.bin/eslint --format=json --output-file=eslint-results.json json-shop/
           echo "::set-output name=eslint_results::eslint-results.json"
 
       - name: Upload ESLint results as artifact
