@@ -44,33 +44,10 @@ jobs:
         run: |
             docker run -d -p 3000:3000 --name my-node-app cchniti/juice-shop:latest
 
-
-
-
-#      - name: Use Node.js ${{ matrix.node-version }}
-#        uses: actions/setup-node@v1
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#      - name: npm install
-#        run: |
-#          npm ci
-#          npm run build --if-present
-#        env:
-#          CI: true
-#      - name: run auditjs
-#        run: |
-#          npx auditjs@latest iq > audit-report.json
-#      - name: Upload audit report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: audit-report
-#          path: audit-report.json
-
       - name: Run ESLint and save results in JSON file
-        id: eslint
-        run: |
-          /node_modules/.bin/eslint --format=json --output-file=eslint-results.json json-shop/
-          echo "::set-output name=eslint_results::eslint-results.json"
+      - uses: stefanoeb/eslint-action@1.0.2
+        with:
+        files: ./
 
       - name: Upload ESLint results as artifact
         uses: actions/upload-artifact@v2
