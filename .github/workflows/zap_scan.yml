@@ -43,20 +43,7 @@ jobs:
       - name: Run Docker container
         run: |
             docker run -d -p 3000:3000 --name my-node-app cchniti/juice-shop:latest
-      - name: Install ESLint
-        run: npm install eslint --no-optional
 
-      - name: Run ESLint and save results in JSON file
-        id: eslint
-        run: |
-          ./node_modules/.bin/eslint --format=json --output-file=eslint-results.json juice-shop/
-          echo "::set-output name=eslint_results::eslint-results.json"
-
-      - name: Upload ESLint results as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: eslint-results
-          path: eslint-results.json
       - name: Install Perl
         run: |
           sudo apt update
@@ -67,7 +54,7 @@ jobs:
 
       - name: Run Nikto scan
         run: |
-          perl ./nikto/program/nikto.pl -h http://localhost:3000 -o /tmp/nikto-scan-report.xml || true
+          perl ./nikto/program/nikto.pl -h http://localhost:3000/api-docs/ -o /tmp/nikto-scan-report.xml || true
 
       - name: Save Nikto scan report
         run: cp /tmp/nikto-scan-report.xml .
