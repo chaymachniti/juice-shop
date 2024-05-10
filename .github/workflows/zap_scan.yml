@@ -43,7 +43,14 @@ jobs:
       - name: Run Docker container
         run: |
             docker run -d -p 3000:3000 --name my-node-app cchniti/juice-shop:latest
-
+      - name: Scan Image
+        uses: neuvector/scan-action@main
+        with:
+            image-repository: registry.organization.com/org/image-name
+            image-tag: ${{ github.sha }}
+            min-high-cves-to-fail: "1"
+            min-medium-cves-to-fail: "1"
+            output: "json"
       - name: Install Perl
         run: |
           sudo apt update
