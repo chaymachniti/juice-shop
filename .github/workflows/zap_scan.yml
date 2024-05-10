@@ -45,9 +45,9 @@ jobs:
             docker run -d -p 3000:3000 --name my-node-app cchniti/juice-shop:latest
 
       - name: Run ESLint and save results in JSON file
-      - uses: stefanoeb/eslint-action@1.0.2
+        uses: stefanoeb/eslint-action@1.0.2
         with:
-        files: ./
+          files: ./
 
       - name: Upload ESLint results as artifact
         uses: actions/upload-artifact@v2
