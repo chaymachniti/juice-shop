@@ -43,10 +43,15 @@ jobs:
       - name: Run Docker container
         run: |
           docker run -d -p 3000:3000 --name my-node-app -v /zap/wrk:/zap/wrk --user $(id -u):$(id -g) cchniti/juice-shop:latest
-          
-          
-          docker run -d -p 3000:3000 --name my-node-app cchniti/juice-shop:latest
-
+      - name: Check if container is running
+        run: |
+          # Check if Docker container is running and listening on port 3000
+          if docker ps --format '{{.Ports}}' | grep -q '0.0.0.0:3000->3000/tcp'; then
+            echo "Container is running on port 3000"
+          else
+            echo "Container is not running on port 3000"
+            exit 1
+          fi
       - name: Start ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
