@@ -42,7 +42,10 @@ jobs:
 
       - name: Run Docker container
         run: |
-            docker run -d -p 3000:3000 --name my-node-app cchniti/juice-shop:latest
+          docker run -d -p 3000:3000 --name my-node-app -v /zap/wrk:/zap/wrk --user $(id -u):$(id -g) cchniti/juice-shop:latest
+          
+          
+          docker run -d -p 3000:3000 --name my-node-app cchniti/juice-shop:latest
 
       - name: Start ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
